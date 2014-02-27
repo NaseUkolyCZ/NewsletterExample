@@ -36,8 +36,15 @@ type RecipientsController() =
         db.DataContext.SubmitChanges()
         x.Get()
 
-    member x.Delete ([<FromBody>] recipient:Recipient) =
-        let toBeDeletedRecipient = new dbSchema.ServiceTypes.Recipients( SmtpAddress=recipient.SmtpAddress, RecipientName=recipient.RecipientName, FirstProvidedBy = recipient.FirstProvidedBy )
-        db.Recipients.DeleteOnSubmit(toBeDeletedRecipient)
+    member x.Delete (smtpAddress:string) =
+        let deleteRowsFrom (table:Table<_>) rows =
+            table.DeleteAllOnSubmit(rows)
+
+        query {
+            for rows in db.Recipients do
+            where (rows.SmtpAddress = smtpAddress)
+            select rows
+            }
+        |> deleteRowsFrom db.Recipients
         db.DataContext.SubmitChanges()
         x.Get()

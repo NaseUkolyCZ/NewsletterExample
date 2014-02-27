@@ -311,6 +311,7 @@
     <Content Include="fonts\iconFont.eot" />
     <None Include="Scripts\jquery-1.6.4-vsdoc.js" />
     <Content Include="Scripts\controllers\recipientCreateController.js" />
+    <Content Include="Scripts\controllers\recipientDeleteController.js" />
     <Content Include="Scripts\controllers\recipientDetailController.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -625,6 +626,7 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Templates\recipientCreate.htm" />
+    <Content Include="Templates\recipientDelete.htm" />
     <Content Include="Templates\recipientDetail.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

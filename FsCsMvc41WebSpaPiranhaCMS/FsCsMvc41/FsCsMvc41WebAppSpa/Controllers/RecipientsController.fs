@@ -11,7 +11,7 @@ open System.Data.Linq
 open Microsoft.FSharp.Data.TypeProviders
 open Microsoft.FSharp.Linq
 
-type dbSchema = SqlDataConnection<"Data Source=nutfs01;Initial Catalog=Newsletter;Integrated Security=SSPI;">
+type dbSchema = SqlDataConnection<"Data Source=(localdb)\Projects;Initial Catalog=Newsletter;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False">
 
 type RecipientsController() =
     inherit ApiController()

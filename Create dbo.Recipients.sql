@@ -1,19 +1,11 @@
-﻿USE [Newsletter]
-GO
-
-/****** Object: Table [dbo].[Recipients] Script Date: 2/27/2014 10:50:12 PM ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
+﻿DROP TABLE Recipients
 
 CREATE TABLE [dbo].[Recipients] (
-    [SmtpAddress]     NVARCHAR (MAX) NOT NULL,
-    [RecipientName]   NVARCHAR (MAX) NOT NULL,
-    [FirstProvidedBy] NVARCHAR (MAX) NOT NULL,
-    [EmailDomain]     NVARCHAR (MAX) NULL,
-    [Excluded]        BIT            NULL
+    [SmtpAddress]     NVARCHAR (255) NOT NULL,
+    [RecipientName]   NVARCHAR (1024) NOT NULL,
+    [FirstProvidedBy] NVARCHAR (255) NOT NULL,
+    [EmailDomain]     NVARCHAR (255) NULL,
+    [Excluded]        BIT            NULL, 
+    CONSTRAINT [PK_Recipients] PRIMARY KEY ([SmtpAddress])
 );
-
 

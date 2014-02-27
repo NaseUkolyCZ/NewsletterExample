@@ -1,46 +1,46 @@
 (function (util) {    
-    angular.module("contactsApp.service", [], function ($provide) {
-        $provide.factory("ContactsService", ["$http", "$location", function($http, $location) {
-            var contactService = {};
-            var contacts = [];
+    angular.module("recipientsApp.service", [], function ($provide) {
+        $provide.factory("RecipientsService", ["$http", "$location", function($http, $location) {
+            var recipientService = {};
+            var recipients = [];
 
-            contactService.getAll = function(callback) {
-                if (contacts.length === 0) {
-                    $http.get("/api/contacts").success(function(data) {
-                        contacts = data;
-                        callback(contacts);
+            recipientService.getAll = function(callback) {
+                if (recipients.length === 0) {
+                    $http.get("/api/recipients").success(function(data) {
+                        recipients = data;
+                        callback(recipients);
                     });
                 } else {
-                    callback(contacts);
+                    callback(recipients);
                 }
             };
 
-            contactService.addItem = function (item) {
-                contacts.push(item);
+            recipientService.addItem = function (item) {
+                recipients.push(item);
                 $http({
-                    url: "/api/contacts",
+                    url: "/api/recipients",
                     method: "POST",
                     data: JSON.stringify(item),
                 })
                 .success(function () {
-                    toastr.success("You have successfully created a new contact!", "Success!");
+                    toastr.success("You have successfully created a new recipient!", "Success!");
                     $location.path("/");
                 })
                 .error(function () {
-                    contacts.pop();
-                    toastr.error("There was an error creating your new contact", "<sad face>");
+                    recipients.pop();
+                    toastr.error("There was an error creating your new recipient", "<sad face>");
                 });
             };
 
-            return contactService;
+            return recipientService;
         }]);
     });
     
-    angular.module("contactsapp", ["contactsApp.service"])
+    angular.module("recipientsapp", ["recipientsApp.service"])
         .config(["$routeProvider", function ($routeProvider) {
             $routeProvider
-                .when("/create", { templateUrl: util.buildTemplateUrl("contactCreate.htm") })
-                .otherwise({ redirectTo: "/", templateUrl: util.buildTemplateUrl("contactDetail.htm") });
+                .when("/create", { templateUrl: util.buildTemplateUrl("recipientCreate.htm") })
+                .otherwise({ redirectTo: "/", templateUrl: util.buildTemplateUrl("recipientDetail.htm") });
         }]);
 })(appFsMvc.utility);
 

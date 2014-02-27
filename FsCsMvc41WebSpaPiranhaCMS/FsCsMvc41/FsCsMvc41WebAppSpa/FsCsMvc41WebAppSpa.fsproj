@@ -86,9 +86,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Contact.fs" />
+    <Compile Include="Models\Recipient.fs" />
     <Compile Include="Controllers\HomeController.fs" />
-    <Compile Include="Controllers\ContactsController.fs" />
+    <Compile Include="Controllers\RecipientsController.fs" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <Compile Include="Global.fs" />

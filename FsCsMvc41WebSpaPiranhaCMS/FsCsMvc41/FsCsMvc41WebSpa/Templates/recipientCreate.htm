@@ -1,0 +1,31 @@
+﻿<div class="nine.columns.centered" data-ng-controller="appFsMvc.Controllers.recipientCreateController">
+    <form id="recipientForm">
+        <fieldset>
+            <legend>Create New Recipient</legend>
+
+            <div class="editor-label">
+                SMTP Address:
+            </div>
+            <div class="editor-field">
+                <input id="smtpAddress" name="smtpAddress" type="text" />
+            </div>
+
+            <div class="editor-label">
+                Recipient Full Name:
+            </div>
+            <div class="editor-field">
+                <input id="recipientName" name="recipientName" type="text" />
+            </div>
+
+            <div class="editor-label">
+                Owner:
+            </div>
+            <div class="editor-field">
+                <input id="firstProvidedBy" name="firstProvidedBy" type="text" />
+            </div>
+            <p>
+                <input id="saveRecipient" type="button" class="small button radius" value="Save" data-ng-click="addRecipient()" />
+            </p>
+        </fieldset>
+    </form>
+</div>

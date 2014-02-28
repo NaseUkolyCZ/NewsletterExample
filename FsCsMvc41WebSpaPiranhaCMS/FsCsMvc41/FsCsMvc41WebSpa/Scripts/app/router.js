@@ -16,12 +16,13 @@
             };
             recipientService.deleteItem = function (id) {
                 $http({
-                    url: "/api/recipients",
-                    method: "DELETE",
-                    data: JSON.stringify(id),
+                    url: "/api/recipients/" + id,
+                    method: "DELETE"
                 })
                 .success(function () {
                     toastr.success("You have successfully deleted the recipient!", "Success!");
+                    recipients = data;
+                    callback(recipients);
                     $location.path("/");
                 })
                 .error(function () {

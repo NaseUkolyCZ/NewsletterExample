@@ -36,13 +36,14 @@ type RecipientsController() =
         db.DataContext.SubmitChanges()
         x.Get()
 
-    member x.Delete (smtpAddress:string) =
+    // http://stackoverflow.com/questions/14481592/webapi-no-action-was-found-on-the-controller
+    member x.Delete (id:string) =
         let deleteRowsFrom (table:Table<_>) rows =
             table.DeleteAllOnSubmit(rows)
 
         query {
             for rows in db.Recipients do
-            where (rows.SmtpAddress = smtpAddress)
+            where (rows.SmtpAddress = id)
             select rows
             }
         |> deleteRowsFrom db.Recipients

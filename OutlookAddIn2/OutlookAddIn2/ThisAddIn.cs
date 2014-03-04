@@ -77,12 +77,18 @@ namespace OutlookAddIn2
                     pa.GetProperty(PR_SMTP_ADDRESS).ToString();
                 //if (!emails.Keys.Contains(smtpAddress)) emails.Add(smtpAddress, recip.Name );
                 SaveRecipient(smtpAddress, recip.Name);
+                SetSenderSubject(smtpAddress, mail.Subject);
                 }
                 catch (Exception ex)
                 {
 
                 }
             }
+        }
+
+        private void SetSenderSubject(string smtpAddress, string p)
+        {
+            
         }
 
         // Uses recursion to enumerate Outlook subfolders.
@@ -99,6 +105,7 @@ namespace OutlookAddIn2
                     try
                     {
                         SaveRecipient(item.SenderEmailAddress, item.SenderName);
+                        SetSenderSubject(item.SenderEmailAddress, item.Subject);
                         GetSMTPAddressForRecipients(item);
                         /*
                         string[] tos = item.To == null ? new string[] { } : item.To.Split(';');

@@ -88,7 +88,16 @@ namespace OutlookAddIn2
 
         private void SetSenderSubject(string smtpAddress, string p)
         {
-            
+            using (SqlConnection cnn = new SqlConnection("Server=(localdb)\\Projects;Database=Newsletter;Trusted_Connection=True;Connection Timeout=30;"))
+            {
+                cnn.Open();
+                using (SqlCommand cmd = new SqlCommand("sp_UpdateSampleSubject @0, @1", cnn))
+                {
+                    cmd.Parameters.AddWithValue("@0", (String.Empty + smtpAddress).Trim('\'', '"'));
+                    cmd.Parameters.AddWithValue("@1", (String.Empty + p).Trim('\'', '"'));
+                    cmd.ExecuteNonQuery();
+                }
+            }            
         }
 
         // Uses recursion to enumerate Outlook subfolders.

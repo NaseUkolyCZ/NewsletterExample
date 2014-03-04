@@ -24,10 +24,25 @@ type RecipientsController() =
             select row
         }
 
+    let countOfrecipients =
+        query {
+                for row in db.Recipients do
+                count
+        }
+
     // GET /api/contacts
     // http://msdn.microsoft.com/en-us/library/hh361033.aspx & http://msdn.microsoft.com/en-us/library/dd233209.aspx
     member x.Get() = 
-        seq { for row in recipients -> new Recipient(SmtpAddress = row.SmtpAddress, RecipientName = row.RecipientName, FirstProvidedBy = row.FirstProvidedBy ) }
+        //seq { for row in recipients -> new Recipient(SmtpAddress = row.SmtpAddress, RecipientName = row.RecipientName, FirstProvidedBy = row.FirstProvidedBy ) }
+        x.Get(0)
+
+    member x.Get(id:int) = 
+        let nullableInt = new System.Nullable<int>(id)
+
+        seq { for row in  query {
+                for row in db.FnPagesRecipients(nullableInt) do
+                select row
+            } -> new Recipient(SmtpAddress = row.SmtpAddress, RecipientName = row.RecipientName, FirstProvidedBy = row.FirstProvidedBy ) }
 
     // POST /api/contacts
     member x.Post ([<FromBody>] recipient:Recipient) = 

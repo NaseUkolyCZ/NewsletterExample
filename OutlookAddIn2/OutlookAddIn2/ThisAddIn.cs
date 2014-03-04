@@ -17,6 +17,8 @@ namespace OutlookAddIn2
     {
         internal static ThisAddIn instance = null;
 
+        static string cnnString = "Server=(localdb)\\Projects;Database=Newsletter;Trusted_Connection=True;Connection Timeout=30;";
+
         //http://msdn.microsoft.com/en-us/library/office/ff184648.aspx
         public void EnumerateStores()
         {
@@ -50,7 +52,7 @@ namespace OutlookAddIn2
 
         private void SaveRecipient(string smtpAddress, string RecipientName)
         {
-            using (SqlConnection cnn = new SqlConnection("Server=(localdb)\\Projects;Database=Newsletter;Trusted_Connection=True;Connection Timeout=30;"))
+            using (SqlConnection cnn = new SqlConnection(cnnString))
             {
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand("sp_InsertOrUpdate @0, @1", cnn))
@@ -88,7 +90,7 @@ namespace OutlookAddIn2
 
         private void SetSenderSubject(string smtpAddress, string p)
         {
-            using (SqlConnection cnn = new SqlConnection("Server=(localdb)\\Projects;Database=Newsletter;Trusted_Connection=True;Connection Timeout=30;"))
+            using (SqlConnection cnn = new SqlConnection(cnnString))
             {
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand("sp_UpdateSampleSubject @0, @1", cnn))

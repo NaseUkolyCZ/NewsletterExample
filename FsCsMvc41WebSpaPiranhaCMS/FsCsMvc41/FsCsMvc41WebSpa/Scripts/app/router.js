@@ -4,9 +4,9 @@
             var recipientService = {};
             var recipients = [];
 
-            recipientService.getAll = function(callback) {
+            recipientService.getAll = function(page, callback) {
                 if (recipients.length === 0) {
-                    $http.get("/api/recipients").success(function(data) {
+                    $http.get("/api/recipients/" + page).success(function(data) {
                         recipients = data;
                         callback(recipients);
                     });
@@ -56,7 +56,19 @@
             $routeProvider
                 .when("/create", { templateUrl: util.buildTemplateUrl("recipientCreate.htm") })
                 .when("/delete/:smtpAddress", { templateUrl: util.buildTemplateUrl("recipientDelete.htm") })
-                .otherwise({ redirectTo: "/", templateUrl: util.buildTemplateUrl("recipientDetail.htm") });
+                .when("/get/:page", { templateUrl: util.buildTemplateUrl("recipientDetail.htm") })
+                .otherwise({ redirectTo: "/get/0", templateUrl: util.buildTemplateUrl("recipientDetail.htm") });
         }]);
+
+    angular.module("myModule", []).
+    directive('myRefresh', function ($location, $route) {
+        return function (scope, element, attrs) {
+            element.bind('click', function () {
+                if (element[0] && element[0].href && element[0].href === $location.absUrl()) {
+                    $route.reload();
+                }
+            });
+        }
+    });
 })(appFsMvc.utility);
 

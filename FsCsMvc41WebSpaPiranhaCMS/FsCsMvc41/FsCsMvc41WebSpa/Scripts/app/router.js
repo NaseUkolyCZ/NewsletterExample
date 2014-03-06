@@ -1,10 +1,10 @@
-(function (util) {    
+(function (util) {
     angular.module("recipientsApp.service", [], function ($provide) {
         $provide.factory("RecipientsService", ["$http", "$location", function($http, $location) {
             var recipientService = {};
             var recipients = [];
 
-            recipientService.getAll = function(page, callback) {
+            recipientService.getAll = function (page, callback) {
                 if (recipients.length === 0) {
                     $http.get("/api/recipients/" + page).success(function(data) {
                         recipients = data;
@@ -59,16 +59,4 @@
                 .when("/get/:page", { templateUrl: util.buildTemplateUrl("recipientDetail.htm") })
                 .otherwise({ redirectTo: "/get/0", templateUrl: util.buildTemplateUrl("recipientDetail.htm") });
         }]);
-
-    angular.module("myModule", []).
-    directive('myRefresh', function ($location, $route) {
-        return function (scope, element, attrs) {
-            element.bind('click', function () {
-                if (element[0] && element[0].href && element[0].href === $location.absUrl()) {
-                    $route.reload();
-                }
-            });
-        }
-    });
 })(appFsMvc.utility);
-
